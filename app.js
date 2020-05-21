@@ -6,8 +6,24 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var mysql= require('mysql');
 var app = express();
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database: 'mydb'
+});
+
+
+
+connection.connect();
+
+connection.query('SELECT * FROM compte where 1', function(err, rows, fields) {
+  if (err) throw err;
+  console.log('The solution is: ', rows);
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
